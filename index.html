@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<!-- steps to using a Canvas 
+define  a <canvas></canvas>
+locate the canvas ID
+access the 2d context
+draw shapes
+you can use jQuery or js
+-->
+<canvas id="c" width="600" height="400" style="background-color:red">
+	Canvas is not supported
+</canvas>
+
+	
+		<script >
+		var c=document.getElementById('c');
+		var ctx=c.getContext('2d');
+		c.height=window.innerHeight;
+		c.width=window.innerWidth;
+		var chars="abcdefghilk";
+		chars=chars.split("");
+		var font_size=10;
+		var columns=c.width/font_size;
+		var drops=[];
+
+		for(var x=0; x<columns;x++)
+		{
+			drops[x]=1;
+		}
+
+		function draw()
+		{
+			ctx.fillStyle="rgba(0,0,0,0.05)";
+			ctx.fillRect(0,0,c.width,c.height);
+
+			ctx.fillStyle="green";
+			ctx.font=font_size;
+
+			for(var i=0;i<drops.length;i++)
+			{
+				var text=chars[Math.floor(Math.random()*chars.length)];
+				ctx.fillText(text,i*font_size,drops[i]*font_size);
+
+				if(drops[i]*font_size > c.height && Math.random()>0.975)
+					drops[i]=0;
+				drops[i]++;
+			}
+		}
+		setInterval(draw, 33);
+		</script>
+
+</body>
+</html>
+
